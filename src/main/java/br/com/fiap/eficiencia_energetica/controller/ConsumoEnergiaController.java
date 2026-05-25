@@ -1,8 +1,8 @@
-package br.com.fiap.eficienciaenergetica.controller;
+package br.com.fiap.eficiencia_energetica.controller;
 
-import br.com.fiap.eficienciaenergetica.dto.ConsumoEnergiaCadastroDTO;
-import br.com.fiap.eficienciaenergetica.dto.ConsumoEnergiaExibicaoDTO;
-import br.com.fiap.eficienciaenergetica.service.ConsumoEnergiaService;
+import br.com.fiap.eficiencia_energetica.dto.ConsumoEnergiaCadastroDTO;
+import br.com.fiap.eficiencia_energetica.dto.ConsumoEnergiaExibicaoDTO;
+import br.com.fiap.eficiencia_energetica.service.ConsumoEnergiaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

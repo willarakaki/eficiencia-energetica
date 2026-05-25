@@ -1,4 +1,4 @@
-package br.com.fiap.eficienciaenergetica.model;
+package br.com.fiap.eficiencia_energetica.model;
 
 import jakarta.persistence.*;
 import lombok.*;

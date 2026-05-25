@@ -1,9 +1,9 @@
-package br.com.fiap.eficienciaenergetica.service;
+package br.com.fiap.eficiencia_energetica.service;
 
-import br.com.fiap.eficienciaenergetica.dto.ConsumoEnergiaCadastroDTO;
-import br.com.fiap.eficienciaenergetica.dto.ConsumoEnergiaExibicaoDTO;
-import br.com.fiap.eficienciaenergetica.model.ConsumoEnergia;
-import br.com.fiap.eficienciaenergetica.repository.ConsumoEnergiaRepository;
+import br.com.fiap.eficiencia_energetica.dto.ConsumoEnergiaCadastroDTO;
+import br.com.fiap.eficiencia_energetica.dto.ConsumoEnergiaExibicaoDTO;
+import br.com.fiap.eficiencia_energetica.model.ConsumoEnergia;
+import br.com.fiap.eficiencia_energetica.repository.ConsumoEnergiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
