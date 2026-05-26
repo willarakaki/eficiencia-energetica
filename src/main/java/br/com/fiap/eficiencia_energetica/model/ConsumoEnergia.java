@@ -22,7 +22,7 @@ public class ConsumoEnergia {
     @SequenceGenerator(
             name = "SEQ_CONSUMO_ENERGIA",
             sequenceName = "SEQ_CONSUMO_ENERGIA",
-            allocationSize = 50
+            allocationSize = 1
     )
     @Column(name = "id")
     private Long id;

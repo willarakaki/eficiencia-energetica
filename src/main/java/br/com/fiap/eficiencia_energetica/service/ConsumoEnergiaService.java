@@ -4,11 +4,11 @@ import br.com.fiap.eficiencia_energetica.dto.ConsumoEnergiaCadastroDTO;
 import br.com.fiap.eficiencia_energetica.dto.ConsumoEnergiaExibicaoDTO;
 import br.com.fiap.eficiencia_energetica.model.ConsumoEnergia;
 import br.com.fiap.eficiencia_energetica.repository.ConsumoEnergiaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ConsumoEnergiaService {
@@ -35,20 +35,17 @@ public class ConsumoEnergiaService {
     }
 
     public ConsumoEnergiaExibicaoDTO buscarPorId(Long id) {
-        Optional<ConsumoEnergia> consumoOptional = repository.findById(id);
-        if (consumoOptional.isPresent()) {
-            return new ConsumoEnergiaExibicaoDTO(consumoOptional.get());
-        }
-        // Aqui o Controller vai tratar e devolver 404
-        throw new RuntimeException("Consumo não encontrado!");
+        // Se não achar o ID, lança a exceção que o TratadorDeErros está esperando
+        ConsumoEnergia consumo = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Consumo não encontrado!"));
+
+        return new ConsumoEnergiaExibicaoDTO(consumo);
     }
 
     public void deletar(Long id) {
-        Optional<ConsumoEnergia> consumoOptional = repository.findById(id);
-        if (consumoOptional.isPresent()) {
-            repository.delete(consumoOptional.get());
-        } else {
-            throw new RuntimeException("Consumo não encontrado!");
-        }
+        ConsumoEnergia consumo = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Consumo não encontrado!"));
+
+        repository.delete(consumo);
     }
 }

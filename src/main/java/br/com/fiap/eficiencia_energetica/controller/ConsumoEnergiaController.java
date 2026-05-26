@@ -31,24 +31,16 @@ public class ConsumoEnergiaController {
         return ResponseEntity.ok(service.listarTodos());
     }
 
-    // 3. GET - Buscar por ID com tratamento de exceção (404 Not Found)
+    // 3. GET - Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<ConsumoEnergiaExibicaoDTO> buscarPorId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(service.buscarPorId(id));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // Retorna 404 caso o Service lance a exceção
-        }
+        return ResponseEntity.ok(service.buscarPorId(id));
     }
 
     // 4. DELETE - Excluir registro
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        try {
-            service.deletar(id);
-            return ResponseEntity.noContent().build(); // Retorna 204 No Content após deletar
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
