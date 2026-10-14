@@ -1,4 +1,4 @@
-# Projeto - Cidades ESGInteligentes
+# Projeto - Eficiência Energética
 
 > **Atividade Avaliativa:** Navegando pelo mundo DevOps  
 > **Tema:** Eficiência Energética e Monitoramento Sustentável (ESG)  
@@ -13,7 +13,7 @@
 
 ## 📋 Descrição do Projeto
 
-O **Cidades ESGInteligentes - Eficiência Energética** é uma solução backend desenvolvida em **Java Spring Boot 4 / Java 21** com foco em sustentabilidade corporativa e urbana (critérios ESG). A aplicação monitora e gerencia o consumo elétrico (em kWh) de equipamentos críticos distribuídos por setores.
+O **Eficiência Energética** é uma solução backend desenvolvida em **Java Spring Boot 4 / Java 21** com foco em sustentabilidade corporativa e urbana (critérios ESG). A aplicação monitora e gerencia o consumo elétrico (em kWh) de equipamentos críticos distribuídos por setores.
 
 ### Arquitetura da Aplicação
 O sistema foi construído seguindo a **Arquitetura em Camadas (Layered Architecture)**:
