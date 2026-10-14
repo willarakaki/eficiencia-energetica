@@ -7,11 +7,7 @@
 ---
 
 ### 👥 Integrantes do Projeto
-* **Integrante 1:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 2:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 3:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 4:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 5:** `[Nome Completo]` - RM: `[RMXXXXX]`
+* **Integrante 1:** `Willian Kenji Misuno Arakaki` - RM: `RM561418`
 
 ---
 
@@ -246,74 +242,34 @@ A suíte de testes foi desenhada para cobrir com precisão as camadas da aplica�
 Abaixo estão registradas as evidências de execução dos testes, build da imagem Docker, deploy dos serviços e funcionamento da aplicação nos ambientes:
 
 ### 1. Evidência da Execução dos Testes Automatizados (CI)
-Execução da suíte de testes com JUnit 5, Mockito e WebMvcTest:
-```text
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-[INFO] Running br.com.fiap.eficiencia_energetica.controller.ConsumoEnergiaControllerTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.158 s
-[INFO] Running br.com.fiap.eficiencia_energetica.EficienciaEnergeticaApplicationTests
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.464 s
-[INFO] Running br.com.fiap.eficiencia_energetica.service.ConsumoEnergiaServiceTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.138 s
-[INFO] 
-[INFO] Results:
-[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-```
+Execução da suíte completa de 11 testes automatizados (unitários, integração de contexto e controllers) com 100% de sucesso:
+
+![Suíte de Testes Automatizados](docs/prints/01-testes-automatizados.png)
 
 ### 2. Evidência do Build da Imagem Docker Multi-Stage
-Construção do container e validação do tamanho reduzido:
-```text
-$ docker build -t eficiencia-energetica:latest .
-[+] Building 58.7s (19/19) FINISHED
- => [builder 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21
- => [builder 4/6] RUN mvn dependency:go-offline -B
- => [builder 6/6] RUN mvn clean package -DskipTests -B
- => [stage-1 4/5] COPY --from=builder /build/target/*.jar app.jar
- => [stage-1 5/5] RUN chown -R esguser:esggroup /app
- => exporting to image
- => naming to docker.io/library/eficiencia-energetica:latest done
+Construção da imagem multi-stage validando o tamanho reduzido e otimizado de apenas 224 MB:
 
-$ docker images eficiencia-energetica:latest
-REPOSITORY              TAG       IMAGE ID       SIZE
-eficiencia-energetica   latest    72a5f661fbcb   224MB
-```
+![Imagem Docker Criada](docs/prints/02-imagem-docker.png)
 
 ### 3. Evidência da Subida dos Containers via Docker Compose
-Orquestração da aplicação backend e do banco Oracle 23ai:
-```text
-$ docker compose ps
-NAME                        IMAGE                          COMMAND                  SERVICE      CREATED         STATUS                   PORTS
-app-eficiencia-energetica   eficiencia-energetica:latest   "java -Djava.securit…"   app          10 minutes ago   Up 10 minutes (healthy)  0.0.0.0:8080->8080/tcp
-oracle-db-esg               gvenzl/oracle-free:23-slim     "container-entrypoin…"   oracle-db    10 minutes ago   Up 10 minutes (healthy)  0.0.0.0:1521->1521/tcp
-```
+Orquestração da aplicação backend e do banco Oracle 23ai operando em estado saudável (healthy):
 
-### 4. Evidência de Funcionamento em Staging e Produção
-* **Ambiente Staging (Porta 8081 / Namespace `esg-staging`):**
-  ```text
-  GET http://localhost:8081/actuator/health
-  HTTP/1.1 200 OK
-  {"status":"UP","components":{"db":{"status":"UP"},"diskSpace":{"status":"UP"}}}
-  ```
-* **Ambiente Produção (Porta 8080 / Namespace `esg-production`):**
-  ```text
-  GET http://localhost:8080/consumo-energia
-  HTTP/1.1 200 OK
-  Content-Type: application/json
-  [
-    {
-      "id": 1,
-      "nomeEquipamento": "Painel Solar Central",
-      "setor": "Bloco A - Cobertura",
-      "consumoKwh": 350.5,
-      "dataRegistro": "2026-10-13"
-    }
-  ]
-  ```
+![Containers Saudáveis no Docker Compose](docs/prints/03-docker-compose-ps.png)
+
+### 4. Evidência do Pipeline CI/CD no Pull Request (GitHub Actions)
+Validação das etapas de build, testes e staging executadas automaticamente no Pull Request antes da integração:
+
+![Validação do Pipeline no Pull Request](docs/prints/04-pipeline-pull-request.png)
+
+### 5. Evidência de Funcionamento da API (Postman / Ambientes)
+Requisição `POST /auth/registrar` executada no Postman com retorno HTTP `200 OK`, comprovando a comunicação de rede dos containers, o tratamento de segurança com BCrypt e a persistência na tabela do Oracle Database:
+
+![Execução da API no Postman - Status 200 OK](docs/prints/05-postman-api.png)
+
+### 6. Evidência do Merge na Main e Deploy Realizado com Sucesso
+Integração contínua e deploy automatizado após a aprovação e merge do Pull Request na branch `main`, registrando os 4 checks validados com sucesso:
+
+![Merge Concluído e Deploy Realizado](docs/prints/06-pipeline-merge-main.png)
 
 ---
 
