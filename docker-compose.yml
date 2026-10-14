@@ -1,0 +1,71 @@
+# ==============================================================================
+# Docker Compose: Orquestração Eficiência Energética - Cidades ESGInteligentes
+# ==============================================================================
+# Orquestra os serviços da aplicação Spring Boot e do banco de dados relacional
+# utilizando redes isoladas (networks), persistência de dados (volumes) e
+# configurações flexíveis via variáveis de ambiente (.env).
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # Serviço 1: Banco de Dados Relacional (Oracle Database 23ai Free)
+  # ----------------------------------------------------------------------------
+  oracle-db:
+    image: gvenzl/oracle-free:23-slim
+    container_name: oracle-db-esg
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT:-1521}:1521"
+    environment:
+      ORACLE_PASSWORD: ${DB_PASSWORD:-oracle123}
+      APP_USER: ${DB_USER:-fiap_user}
+      APP_USER_PASSWORD: ${DB_PASSWORD:-oracle123}
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    networks:
+      - esg-network
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  # ----------------------------------------------------------------------------
+  # Serviço 2: Aplicação Backend Java Spring Boot
+  # ----------------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: eficiencia-energetica:latest
+    container_name: app-eficiencia-energetica
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    environment:
+      - DB_URL=jdbc:oracle:thin:@oracle-db:1521/FREEPDB1
+      - DB_USER=${DB_USER:-fiap_user}
+      - DB_PASSWORD=${DB_PASSWORD:-oracle123}
+      - JWT_SECRET=${JWT_SECRET:-chave-secreta-super-segura-fiap-esg-2026}
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    networks:
+      - esg-network
+
+# ------------------------------------------------------------------------------
+# Configuração de Redes (Rede isolada para comunicação entre os containers)
+# ------------------------------------------------------------------------------
+networks:
+  esg-network:
+    name: esg-network
+    driver: bridge
+
+# ------------------------------------------------------------------------------
+# Volumes Persistentes (Garante a permanência dos dados do banco de dados)
+# ------------------------------------------------------------------------------
+volumes:
+  oracle_data:
+    name: oracle_data_esg

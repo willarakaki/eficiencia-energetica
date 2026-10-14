@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-staging
+  namespace: esg-staging
+data:
+  ENVIRONMENT: "staging"
+  SPRING_PROFILES_ACTIVE: "staging"
+  DB_URL: "jdbc:oracle:thin:@oracle-db-service:1521/FREEPDB1"

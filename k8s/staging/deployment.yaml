@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-eficiencia-energetica
+  namespace: esg-staging
+  labels:
+    app: eficiencia-energetica
+    environment: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eficiencia-energetica
+  template:
+    metadata:
+      labels:
+        app: eficiencia-energetica
+        environment: staging
+    spec:
+      containers:
+        - name: app-container
+          image: eficiencia-energetica:staging
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config-staging
+            - secretRef:
+                name: app-secrets-staging
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 45
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
