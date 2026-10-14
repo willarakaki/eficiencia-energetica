@@ -7,11 +7,7 @@
 ---
 
 ### 👥 Integrantes do Projeto
-* **Integrante 1:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 2:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 3:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 4:** `[Nome Completo]` - RM: `[RMXXXXX]`
-* **Integrante 5:** `[Nome Completo]` - RM: `[RMXXXXX]`
+* **Integrante 1:** `Willian Kenji Misuno Arakaki` - RM: `RM561418`
 
 ---
 
