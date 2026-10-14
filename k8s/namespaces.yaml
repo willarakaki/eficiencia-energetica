@@ -1,0 +1,18 @@
+# ==============================================================================
+# Namespaces Kubernetes: Ambientes de Staging e Produção
+# ==============================================================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: esg-staging
+  labels:
+    environment: staging
+    project: cidades-esg-inteligentes
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: esg-production
+  labels:
+    environment: production
+    project: cidades-esg-inteligentes
