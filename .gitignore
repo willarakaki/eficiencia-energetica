@@ -35,3 +35,7 @@ build/
 # Environment and Archives
 .env
 *.zip
+
+# Entregáveis locais da atividade FIAP (não sobem para o repositório)
+gerar-zip-entrega.ps1
+DOCUMENTACAO_EVIDENCIAS_TESTES.md
