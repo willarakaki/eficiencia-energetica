@@ -1,0 +1,41 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://fiap.com.br/schemas/consulta-consumo.json",
+  "title": "ConsultaConsumoPorId",
+  "type": "object",
+  "required": [
+    "id",
+    "nomeEquipamento",
+    "setor",
+    "consumoKwh",
+    "dataRegistro"
+  ],
+  "properties": {
+    "id": {
+      "$id": "#root/id",
+      "title": "Id",
+      "type": "integer"
+    },
+    "nomeEquipamento": {
+      "$id": "#root/nomeEquipamento",
+      "title": "NomeEquipamento",
+      "type": "string"
+    },
+    "setor": {
+      "$id": "#root/setor",
+      "title": "Setor",
+      "type": "string"
+    },
+    "consumoKwh": {
+      "$id": "#root/consumoKwh",
+      "title": "ConsumoKwh",
+      "type": "number"
+    },
+    "dataRegistro": {
+      "$id": "#root/dataRegistro",
+      "title": "DataRegistro",
+      "type": "string"
+    }
+  }
+}
